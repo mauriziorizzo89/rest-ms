@@ -4,6 +4,8 @@
 
 # Start minukube cluster 
 
+``minikube start --driver=docker --nodes 3 -p mr-cluster``
+
 ``minikube start -p mr-cluster``
 
 ``minikube image load mauriziorizzo89/rest-ms:1.0.0 -p mr-cluster``
