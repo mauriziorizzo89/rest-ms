@@ -1,0 +1,29 @@
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,loggers,metrics,prometheus
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+    loggers:
+      enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
+logging:
+  pattern:
+    console: "%d{ISO8601} | %-5p | MDC.ID: [%X{MDC.ID}] | %C | %M - %line | %clr(%m){faint}%n"
+  level:
+    root: info
+    org.springframework.web: debug
+    org.springframework.boot.actuate.health: info
+    org.springframework.web.servlet: info
+    it.k8s.restms.controller: info
+    it.k8s.restms.service: info
