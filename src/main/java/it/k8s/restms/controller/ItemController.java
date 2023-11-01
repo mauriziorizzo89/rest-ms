@@ -1,6 +1,7 @@
 package it.k8s.restms.controller;
 
 import it.k8s.restms.dto.ItemDTO;
+import it.k8s.restms.mapper.ItemMapper;
 import it.k8s.restms.model.Item;
 import it.k8s.restms.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,23 +19,16 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    /**{@inheritDoc}*/
     @GetMapping("/get/{id}")
     public ResponseEntity<ItemDTO> getItemById(@PathVariable int id) {
         Item itemById = itemService.getItemById(id);
-        ItemDTO itemDTO = new ItemDTO();
-        itemDTO.setAnni(itemById.getAnni());
-        itemDTO.setCognome(itemById.getCognome());
-        itemDTO.setNome(itemById.getNome());
+        ItemDTO itemDTO = ItemMapper.INSTANCE.itemToItemDTO(itemById);
         return ResponseEntity.ok(itemDTO);
     }
 
     @PostMapping("/save")
     public ResponseEntity<ItemDTO> saveItem(@RequestBody ItemDTO itemDTO) {
-        Item item = new Item();
-        item.setAnni(itemDTO.getAnni());
-        item.setCognome(itemDTO.getCognome());
-        item.setNome(itemDTO.getNome());
+        Item item = ItemMapper.INSTANCE.itemDTOToItem(itemDTO);
         Item result = itemService.saveItem(item);
         itemDTO.setId(result.getId());
         return ResponseEntity.ok(itemDTO);

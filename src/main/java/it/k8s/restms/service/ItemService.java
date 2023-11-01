@@ -9,7 +9,7 @@ public interface ItemService {
      * @param id
      * @return
      */
-    Item getItemById(int id);
+    Item getItemById(Integer id);
 
     /**
      *

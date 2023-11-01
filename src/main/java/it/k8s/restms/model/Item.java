@@ -1,19 +1,20 @@
 package it.k8s.restms.model;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Data
 @Entity
-@Table(name="Item")
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String nome;
-    private String cognome;
-    private int anni;
+    private String name;
+    private String surname;
+    private int age;
 
 }

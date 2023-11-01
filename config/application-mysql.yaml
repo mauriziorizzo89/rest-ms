@@ -26,4 +26,19 @@ logging:
     org.springframework.boot.actuate.health: info
     org.springframework.web.servlet: info
     it.k8s.restms.controller: info
-    it.k8s.restms.service: info
+    it.k8s.restms.service: debug
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://mycluster.mysql-operator:3306/cellar
+    #url: jdbc:mysql://localhost:3306/cellar
+    username: root
+    password: sakila
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+

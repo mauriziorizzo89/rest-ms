@@ -1,5 +1,8 @@
 package it.k8s.restms.service;
 
+import it.k8s.restms.entity.ItemEntity;
+import it.k8s.restms.mapper.ItemEntityMapper;
+import it.k8s.restms.mapper.ItemMapper;
 import it.k8s.restms.model.Item;
 import it.k8s.restms.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
 
     public ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
@@ -19,15 +22,21 @@ public class ItemServiceImpl implements ItemService {
 
     /** {@inheritDoc} */
     @Override
-    public Item getItemById(int id) {
-        Optional<Item> byId = itemRepository.findById(id);
-        return byId.orElse(null);
+    public Item getItemById(Integer id) {
+        log.debug("IN: [{}]", id);
+        Optional<ItemEntity> byId = itemRepository.findById(id);
+        log.debug("Optional<ItemEntity>: [{}]", byId);
+        ItemEntity item = byId.orElse(null);
+        log.debug("ItemEntity: [{}]", item);
+        return ItemEntityMapper.INSTANCE.itemEntityToItem(item);
     }
 
     /** {@inheritDoc} */
     @Override
     public Item saveItem(Item item) {
-        return itemRepository.save(item);
+        ItemEntity itemEntity = ItemEntityMapper.INSTANCE.itemToItemEntity(item);
+        ItemEntity saved = itemRepository.save(itemEntity);
+        return ItemEntityMapper.INSTANCE.itemEntityToItem(saved);
     }
 
     /** {@inheritDoc} */

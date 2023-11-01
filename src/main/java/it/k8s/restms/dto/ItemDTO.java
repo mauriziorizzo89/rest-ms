@@ -6,8 +6,8 @@ import lombok.Data;
 public class ItemDTO {
 
     private int id;
-    private String nome;
-    private String cognome;
-    private int anni;
+    private String name;
+    private String surname;
+    private int age;
 
 }

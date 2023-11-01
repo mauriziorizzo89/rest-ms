@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+   name: rest-ms-deployment
+   namespace: cellar
+spec:
+   replicas: 1
+   strategy: 
+     type: RollingUpdate
+   selector:
+      matchLabels:
+        app: my-rest-ms
+   template:
+      metadata:
+        name: rest-ms-pod
+        labels: 
+          app: my-rest-ms
+        namespace: cellar  
+      spec:
+        containers:
+        - image: docker.io/mauriziorizzo89/rest-ms:1.0.1
+          name: rest-ms-container
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: /config/
+            - name: SPRING_CONFIG_NAME
+              value: application,application-mysql
+          volumeMounts:
+           - name: config
+             mountPath: /config
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          livenessProbe:
+            initialDelaySeconds: 20
+            failureThreshold: 10
+            periodSeconds: 5
+            timeoutSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+          readinessProbe:
+            initialDelaySeconds: 20
+            failureThreshold: 10
+            periodSeconds: 5
+            timeoutSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+        volumes:
+         - name: config
+           configMap:
+             name: rest-ms-cm
