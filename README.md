@@ -23,6 +23,8 @@
 
 # MySQL with HELM
 
+``https://dev.mysql.com/doc/mysql-operator/en/mysql-operator-introduction.html``
+
 ``https://dev.mysql.com/doc/mysql-operator/en/mysql-operator-installation-helm.html``
 
 ``helm repo add mysql-operator https://mysql.github.io/mysql-operator/``

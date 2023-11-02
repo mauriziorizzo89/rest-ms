@@ -35,7 +35,6 @@ spring:
       ddl-auto: none
   datasource:
     url: jdbc:mysql://mycluster.mysql-operator:3306/cellar
-    #url: jdbc:mysql://localhost:3306/cellar
     username: root
     password: sakila
     driver-class-name: com.mysql.cj.jdbc.Driver
